@@ -9,7 +9,8 @@ export const routes: Routes = [
     {path:"incidente/create", component: IncidenteComponent},
     {path:"incidente", component: IncidenteCreateComponent},
   ]},
-  {path:"inventario", component:InventarioLayoutComponent}
+  {path:"inventario", component:InventarioLayoutComponent},
 
+  {path:"**", redirectTo: "cce"}
 
 ];

@@ -35,7 +35,7 @@ export interface MarkerInforme {
 
 @Component({
   selector: 'app-incidente-component',
-  imports: [CardComponent, MatTableModule, MatPaginatorModule, MapPickerComponent],
+  imports: [MatTableModule, MatPaginatorModule, MapPickerComponent],
   templateUrl: './incidente-component.html',
   styleUrl: './incidente-component.css',
 })
