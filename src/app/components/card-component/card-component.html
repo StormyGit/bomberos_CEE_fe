@@ -1,0 +1,19 @@
+<div
+  class="
+    w-full h-full
+    text-center
+    p-4 bg-white
+    rounded-2xl shadow-xl
+    border border-gray-100
+  "
+>
+  @if (Showtitulo) {
+    <div class="font-bold">
+      {{ titulo }}
+    </div>
+  }
+
+  <div class="h-full text-left">
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="grid grid-cols-4 gap-4">
+
+  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+    <p class="text-xs text-gray-500 font-semibold uppercase">
+      Total incidentes
+    </p>
+    <p class="text-3xl font-bold text-gray-800">
+      {{ totalIncidentes }}
+    </p>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+    <p class="text-xs text-gray-500 font-semibold uppercase">
+      En ejecución
+    </p>
+    <p class="text-3xl font-bold text-orange-600">
+      {{ totalEnEjecucion }}
+    </p>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+    <p class="text-xs text-gray-500 font-semibold uppercase">
+      Pendientes
+    </p>
+    <p class="text-3xl font-bold text-yellow-600">
+      {{ totalPendientes }}
+    </p>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+    <p class="text-xs text-gray-500 font-semibold uppercase">
+      Finalizados
+    </p>
+    <p class="text-3xl font-bold text-green-600">
+      {{ totalFinalizados }}
+    </p>
+  </div>
+
+</div>
+
+
+
+<div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm my-4">
+  <h3 class="text-lg font-bold text-gray-800 mb-4">
+    Lugares con más incidentes
+  </h3>
+
+  <div class="space-y-2">
+    @for (item of getTopLugares(); track item.label) {
+      <div class="flex items-center justify-between border-b border-gray-100 pb-2">
+        <span class="text-sm text-gray-700">
+          {{ item.label }}
+        </span>
+
+        <span class="text-sm font-bold text-gray-900">
+          {{ item.total }}
+        </span>
+      </div>
+    }
+  </div>
+</div>
+
+<app-map-picker
+  [height]="'500px'"
+  [enablePicker]="false"
+  [markers]="markersInforme">
+</app-map-picker>

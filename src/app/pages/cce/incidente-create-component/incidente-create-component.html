@@ -1,0 +1,402 @@
+<button
+  type="button"
+  class="m-2 group w-full sm:w-[280px] h-[130px] bg-white border-2 border-gray-300 hover:border-red-500 hover:bg-red-50 rounded-2xl shadow-sm hover:shadow-md p-5 transition-all duration-200 flex flex-col items-center justify-center gap-3"
+  (click)="abrirModal()"
+>
+  <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 group-hover:bg-red-600 group-hover:text-white flex items-center justify-center transition-all duration-200">
+    <span class="text-3xl font-bold leading-none">+</span>
+  </div>
+
+  <div class="text-center">
+    <p class="text-base font-bold text-gray-800">
+      Nuevo Incidente
+    </p>
+    <p class="text-xs text-gray-500">
+      Registrar una nueva emergencia
+    </p>
+  </div>
+</button>
+
+
+<div class="w-full min-h-full flex flex-col gap-4 p-2">
+  <!-- SECCIÓN INFERIOR: TABLA -->
+  <div class="w-full space-y-4">
+
+    <div class="flex w-full space-x-4">
+      <app-card-component
+        class="block w-1/5"
+        [titulo]="'Información'"
+        [Showtitulo]="true"
+      >
+        <div class="space-y-4">
+
+          <!-- Total -->
+          <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+            <p class="text-xs text-gray-500 uppercase font-semibold">
+              Total incidentes
+            </p>
+
+            <p class="text-3xl font-bold text-gray-800 mt-1">
+              {{ list.length }}
+            </p>
+
+            <p class="text-xs text-gray-400 mt-1">
+              Registros del día
+            </p>
+          </div>
+
+          <!-- Resumen por estado -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2">
+              <span class="text-sm text-gray-600">Pendientes</span>
+              <span class="text-sm font-bold text-gray-800">
+                {{ getCountByStatus('pendiente') }}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2">
+              <span class="text-sm text-gray-600">En ejecución</span>
+              <span class="text-sm font-bold text-gray-800">
+                {{ getCountByStatus('ejecucion') }}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2">
+              <span class="text-sm text-gray-600">Finalizados</span>
+              <span class="text-sm font-bold text-gray-800">
+                {{ getCountByStatus('finalizado') }}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-2">
+              <span class="text-sm text-gray-600">Cancelados</span>
+              <span class="text-sm font-bold text-gray-800">
+                {{ getCountByStatus('cancelado') }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Leyenda -->
+          <div class="border-t border-gray-200 pt-4">
+            <p class="text-xs text-gray-500 uppercase font-semibold mb-3">
+              Estados
+            </p>
+
+            <div class="grid grid-cols-1 gap-2">
+              <app-badge-component estado="pendiente"></app-badge-component>
+              <app-badge-component estado="ejecucion"></app-badge-component>
+              <app-badge-component estado="finalizado"></app-badge-component>
+              <app-badge-component estado="cancelado"></app-badge-component>
+            </div>
+          </div>
+
+          <!-- Nota -->
+          <div class="bg-gray-100 rounded-lg p-3">
+            <p class="text-xs text-gray-500">
+              Última actualización
+            </p>
+            <p class="text-sm font-semibold text-gray-700">
+              Hoy · 13:50
+            </p>
+          </div>
+
+        </div>
+      </app-card-component>
+      <!-- incidentes en ejecución -->
+      <app-card-component
+        class="block w-4/5"
+        [titulo]="'En ejecución'"
+        [Showtitulo]="true"
+      >
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+
+          @for (inc of getListEjecucion(); track inc.id) {
+            <button
+              type="button"
+              class="text-left bg-gray-200 border border-gray-200 hover:border-gray-400 rounded-2xl shadow-sm hover:shadow-md p-4 transition-all duration-200"
+              (click)="abrirModal_detalles()"
+            >
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div>
+                  <p class="text-sm font-bold text-gray-800">
+                    {{ inc.incidente }}
+                  </p>
+                  <p class="text-xs text-gray-500">
+                    {{ inc.fecha }} · {{ inc.hora }}
+                  </p>
+                </div>
+
+                <app-badge-component [estado]="inc.status"></app-badge-component>
+              </div>
+
+              <div class="space-y-2">
+                <div>
+                  <p class="text-[11px] uppercase tracking-wide text-gray-400 font-semibold">
+                    Lugar
+                  </p>
+                  <p class="text-sm text-gray-700 font-medium">
+                    {{ inc.lugar }}
+                  </p>
+                </div>
+
+                <div>
+                  <p class="text-[11px] uppercase tracking-wide text-gray-400 font-semibold">
+                    Región
+                  </p>
+                  <p class="text-sm text-gray-700">
+                    {{ inc.region }}
+                  </p>
+                </div>
+
+                <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-wide text-gray-400 font-semibold">
+                      Unidad
+                    </p>
+                    <p class="text-sm font-bold text-gray-800">
+                      {{ inc.unidad }}
+                    </p>
+                  </div>
+
+                  <span class="text-xs text-gray-400">
+                    Ver detalles
+                  </span>
+                </div>
+              </div>
+            </button>
+          }
+
+        </div>
+      </app-card-component>
+    </div>
+
+    <!-- tabla -->
+    <div class="w-full space-x-4">
+      <app-table-custom
+        [columns]="columnasUsuarios"
+        [data]="list"
+        [actions]="actions"
+        (actionClick)="onTableAction($event)">
+      </app-table-custom>
+    </div>
+  </div>
+</div>
+
+
+<app-modal-component
+  [show]="showModal"
+  [titulo]="'Registrar incidente'"
+  [width]="'90%'"
+  [height]="'90%'"
+  [closeOnBackdrop]="false"
+  [showCloseButton]="false"
+  (closed)="cerrarModal()"
+>
+  <app-wizard-component  class="block h-full"
+    [finishText]="'Guardar'"
+    (finished)="guardarWizard()"
+  >
+
+    <!-- informacion -->
+    <app-wizard-step
+      titulo="Incidente"
+      descripcion="Datos principales"
+    >
+      <app-form-component
+        [Formulary]="svFormData.incidente('info')"
+        (getSubmit)="submitForm_info($event)"
+      />
+    </app-wizard-step>
+
+    <!-- mapa y estaciones -->
+    <app-wizard-step
+      titulo="Denunciante"
+      descripcion="Datos de contacto"
+    >
+    <div class="flex w-full space-x-2">
+      <div class="w-3/4">
+        <app-map-picker
+          [height]="'500px'"
+          (pointSelected)="obtenerPunto($event)">
+        </app-map-picker>
+      </div>
+      <div class="w-1/4">
+        <app-incidente-info-components/>
+      </div>
+    </div>
+      <div>
+
+        @if (ubicacionSeleccionada) {
+          <div class="mt-3 text-sm text-gray-700">
+            <p>Latitud: {{ ubicacionSeleccionada.lat }}</p>
+            <p>Longitud: {{ ubicacionSeleccionada.lng }}</p>
+          </div>
+        }
+        <app-form-component
+          [Formulary]="svFormData.incidente('recursos')"
+          (getSubmit)="submitForm_info($event)"
+        />
+      </div>
+      <!-- <div class="space-y-4">
+        <h3 class="text-xl font-bold text-gray-700">
+          Información del denunciante
+        </h3>
+
+        <input
+          class="w-full border rounded-lg px-3 py-2"
+          placeholder="Nombre del denunciante"
+        >
+
+        <input
+          class="w-full border rounded-lg px-3 py-2"
+          placeholder="Teléfono"
+        >
+      </div> -->
+    </app-wizard-step>
+
+
+<app-wizard-step
+  titulo="Bitácora"
+  descripcion="Control de tiempos del incidente"
+>
+  <div class="space-y-5">
+
+    <!-- Resumen superior -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <p class="text-xs text-gray-500 font-semibold uppercase">
+          Estado actual
+        </p>
+        <p class="text-lg font-bold text-gray-800">
+          En ejecución
+        </p>
+      </div>
+
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <p class="text-xs text-gray-500 font-semibold uppercase">
+          Unidad asignada
+        </p>
+        <p class="text-lg font-bold text-gray-800">
+          B-12
+        </p>
+      </div>
+
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <p class="text-xs text-gray-500 font-semibold uppercase">
+          Tiempo estimado
+        </p>
+        <p class="text-lg font-bold text-gray-800">
+          35 min
+        </p>
+      </div>
+    </div>
+
+    <!-- Lista de tiempos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+
+      @for (timer of listTimer; track $index) {
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-4 hover:shadow-md transition-all">
+
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div>
+              <p class="text-sm font-bold text-gray-800">
+                {{ timer.title }}
+              </p>
+
+              <p class="text-xs text-gray-500">
+                {{ timer.description }}
+              </p>
+            </div>
+
+            <span class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 7V12L15 14M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs text-gray-500 font-semibold uppercase">
+                Hora
+              </label>
+
+              <input
+                type="time"
+                class="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
+              >
+            </div>
+
+            <div class="flex gap-2">
+              <button
+                type="button"
+                class="btn btn-sm btn-blue-soft w-full"
+              >
+                Marcar ahora
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-sm btn-red-soft"
+              >
+                Limpiar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      }
+
+    </div>
+
+    <!-- Observaciones -->
+    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-4">
+      <label class="text-sm font-bold text-gray-700 block mb-2">
+        Observaciones de la bitácora
+      </label>
+
+      <textarea
+        class="w-full min-h-[90px] border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+        placeholder="Ejemplo: unidad llegó al lugar, se confirmó emergencia, se solicitó apoyo adicional..."
+      ></textarea>
+    </div>
+
+  </div>
+</app-wizard-step>
+
+  </app-wizard-component>
+</app-modal-component>
+
+<app-modal-component
+  [show]="showModal_detalles"
+  [titulo]="'detalles incidente'"
+  [width]="'70%'"
+  [height]="'70%'"
+  [closeOnBackdrop]="true"
+  [showCloseButton]="true"
+  (closed)="cerrarModal_detalles()"
+>
+  <div class="flex w-full space-x-2 ">
+    <div class="w-1/2">
+      <app-map-picker
+        [height]="'500px'"
+        (pointSelected)="obtenerPunto($event)">
+      </app-map-picker>
+    </div>
+    <div class="w-1/2">
+      <app-incidente-info-components/>
+    </div>
+  </div>
+
+</app-modal-component>

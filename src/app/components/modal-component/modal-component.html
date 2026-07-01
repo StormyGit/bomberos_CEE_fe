@@ -1,0 +1,63 @@
+@if (show) {
+  <!-- FONDO OSCURO -->
+  <div
+    class="
+      fixed inset-0 z-50
+      bg-black/50
+      flex items-center justify-center
+      p-4
+    "
+    (click)="clickBackdrop()"
+  >
+
+    <!-- CONTENEDOR MODAL -->
+    <div
+      class="
+        bg-white rounded-2xl shadow-2xl
+        max-h-[90vh]
+        overflow-hidden
+        flex flex-col
+      "
+      [style.width]="width"
+      [style.height]="height"
+      (click)="stopPropagation($event)"
+    >
+
+      <!-- HEADER -->
+      @if (showHeader) {
+        <div
+          class="
+            flex items-center justify-between
+            px-5 py-3
+            border-b border-gray-200
+          "
+        >
+          <h2 class="text-xl font-bold text-gray-800">
+            {{ titulo }}
+          </h2>
+
+          @if (showCloseButton) {
+            <button
+              type="button"
+              class="
+                w-8 h-8 rounded-full
+                flex items-center justify-center
+                bg-gray-100 hover:bg-gray-200
+                text-gray-700 font-bold
+              "
+              (click)="closeModal()"
+            >
+              ×
+            </button>
+          }
+        </div>
+      }
+
+      <!-- BODY -->
+      <div class="p-5 overflow-auto">
+        <ng-content></ng-content>
+      </div>
+
+    </div>
+  </div>
+}

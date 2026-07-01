@@ -1,0 +1,49 @@
+@for (i of listButtons; track $index) {
+
+  <!-- BOTÓN PRINCIPAL -->
+  <div
+    class="
+
+      mb-2 p-2 rounded-md font-bold cursor-pointer
+      flex justify-between items-center
+      transition
+    "
+    [class.bg-red-200]="isActive(i.path)"
+    [class.bg-red-100]="!isActive(i.path)"
+    (click)="clickButton(i, $index)"
+  >
+    <span>{{ i.name }}</span>
+
+    @if (i.child && i.child.length > 0) {
+      <span class="text-sm">
+        {{ isOpen($index) ? '▲' : '▼' }}
+      </span>
+    }
+  </div>
+
+  <!-- HIJOS / DESPLEGABLE -->
+  @if (i.child && i.child.length > 0 && isOpen($index)) {
+
+    <div class="ml-4 mb-2 space-y-1">
+
+      @for (child of i.child; track child.path) {
+
+        <div
+          class="
+            p-2 rounded-md cursor-pointer text-sm font-semibold
+            transition
+          "
+          [class.bg-red-300]="isActive(child.path)"
+          [class.bg-red-50]="!isActive(child.path)"
+          (click)="irPagina(child.path)"
+        >
+          {{ child.name }}
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+}
