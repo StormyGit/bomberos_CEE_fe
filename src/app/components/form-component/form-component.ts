@@ -35,40 +35,46 @@ export class FormComponent {
   ngOnInit() {
     this.buildForm();
   }
-  buildForm() {
-    const controls: any = {};
-    if (this.Formulary)
-      this.Formulary.seccions.forEach(section => {
-        section.field.forEach(field => {
-          const validators = [];
-          // required
-          if (field.required) {
-            validators.push(Validators.required);
-          }
-          // email
-          if (field.type === 'email') {
-            validators.push(Validators.email);
-          }
-          //max y min
-          if (field.type === 'number'){
-            if (field.max) validators.push(Validators.max(field.max))
-            if (field.min) validators.push(Validators.max(field.min))
-          }else{
-            if (field.max) validators.push(Validators.maxLength(field.max))
-            if (field.min) validators.push(Validators.maxLength(field.min))
-          }
+buildForm() {
+  const controls: any = {};
 
-          // valor inicial: arreglo vacío para múltiple, null para único
-          const initialValue = (field.type === 'image' || field.type === 'file')
-            ? (field.file_Multiple ? [] : null)
-            : '';
+  if (this.Formulary) {
+    this.Formulary.seccions.forEach(section => {
+      section.field.forEach(field => {
+        const validators = [];
 
-          controls[field.name] = [initialValue, validators];
-        });
+        if (field.required) {
+          validators.push(Validators.required);
+        }
+
+        if (field.type === 'email') {
+          validators.push(Validators.email);
+        }
+
+        if (field.type === 'number') {
+          if (field.max) validators.push(Validators.max(field.max));
+          if (field.min) validators.push(Validators.min(field.min));
+        } else {
+          if (field.max) validators.push(Validators.maxLength(field.max));
+          if (field.min) validators.push(Validators.minLength(field.min));
+        }
+
+        const hasValue = field.value !== undefined && field.value !== null;
+
+        const initialValue =
+          hasValue
+            ? field.value
+            : (field.type === 'image' || field.type === 'file')
+              ? (field.file_Multiple ? [] : null)
+              : '';
+
+        controls[field.name] = [initialValue, validators];
       });
-
-    this._formGroup = this.fb.group(controls);
+    });
   }
+
+  this._formGroup = this.fb.group(controls);
+}
 
   Sudmit(){
     console.log(this._formGroup.value);

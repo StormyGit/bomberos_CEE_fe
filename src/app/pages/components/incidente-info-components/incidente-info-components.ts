@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { incidente } from '../../../types/cce/incidente.interface';
 
 @Component({
   selector: 'app-incidente-info-components',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './incidente-info-components.css',
 })
 export class IncidenteInfoComponents {
-
+  @Input() dataIncidente: incidente | null = null
 }

@@ -25,6 +25,7 @@ interface iFormField {
     placeholder?: string;
     readonly?: boolean;
     required?: boolean;
+    value?: any;
     file?: 'pdf' | 'word' | 'excel' | 'png' | 'jpg';
     file_Multiple?: boolean;
     option?: iFormOption[];

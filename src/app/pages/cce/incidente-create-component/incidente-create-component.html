@@ -217,11 +217,12 @@
       <div class="w-3/4">
         <app-map-picker
           [height]="'500px'"
-          (pointSelected)="obtenerPunto($event)">
+          (pointSelected)="onPointSelected($event)"
+          >
         </app-map-picker>
       </div>
       <div class="w-1/4">
-        <app-incidente-info-components/>
+        <app-incidente-info-components [dataIncidente]="incidente_create"/>
       </div>
     </div>
       <div>
@@ -390,12 +391,11 @@
   <div class="flex w-full space-x-2 ">
     <div class="w-1/2">
       <app-map-picker
-        [height]="'500px'"
-        (pointSelected)="obtenerPunto($event)">
+        [height]="'500px'">
       </app-map-picker>
     </div>
     <div class="w-1/2">
-      <app-incidente-info-components/>
+      <app-incidente-info-components [dataIncidente]="incidente_create"/>
     </div>
   </div>
 

@@ -5,7 +5,7 @@
       Total incidentes
     </p>
     <p class="text-3xl font-bold text-gray-800">
-      {{ totalIncidentes }}
+      {{ 6 }}
     </p>
   </div>
 
@@ -14,7 +14,7 @@
       En ejecución
     </p>
     <p class="text-3xl font-bold text-orange-600">
-      {{ totalEnEjecucion }}
+      {{ 6 }}
     </p>
   </div>
 
@@ -23,7 +23,7 @@
       Pendientes
     </p>
     <p class="text-3xl font-bold text-yellow-600">
-      {{ totalPendientes }}
+      {{ 6 }}
     </p>
   </div>
 
@@ -32,7 +32,7 @@
       Finalizados
     </p>
     <p class="text-3xl font-bold text-green-600">
-      {{ totalFinalizados }}
+      {{ 5 }}
     </p>
   </div>
 
@@ -46,7 +46,7 @@
   </h3>
 
   <div class="space-y-2">
-    @for (item of getTopLugares(); track item.label) {
+    <!-- @for (item of getTopLugares(); track item.label) {
       <div class="flex items-center justify-between border-b border-gray-100 pb-2">
         <span class="text-sm text-gray-700">
           {{ item.label }}
@@ -56,12 +56,12 @@
           {{ item.total }}
         </span>
       </div>
-    }
+    } -->
   </div>
 </div>
-
+<!--
 <app-map-picker
   [height]="'500px'"
   [enablePicker]="false"
   [markers]="markersInforme">
-</app-map-picker>
+</app-map-picker> -->

@@ -1,120 +1,117 @@
-<div class="h-full max-h-[500px] overflow-y-auto bg-gray-100 rounded-xl p-4">
-  <h1 class="text-xl font-bold text-gray-800 mb-4">
-    Reporte de Incidente
-  </h1>
+@if (dataIncidente){
+  <div class="h-full max-h-[500px] overflow-y-auto bg-gray-100 rounded-xl p-4">
+    <h1 class="text-xl font-bold text-gray-800 mb-4">
+      Reporte de Incidente
+    </h1>
 
-  <!-- Información de incidente -->
-  <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-500 p-4 mb-3">
-    <h2 class="text-base font-semibold text-gray-800 mb-3">
-      Información de incidente
-    </h2>
+    <!-- Información de incidente -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-500 p-4 mb-3">
+      <h2 class="text-base font-semibold text-gray-800 mb-3">
+        Información de incidente
+      </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
-      <div>
-        <p class="text-xs text-gray-500">Incidente</p>
-        <p class="text-sm font-medium text-gray-800">Incendio estructural</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+        <div>
+          <p class="text-xs text-gray-500">Incidente</p>
+          <p class="text-sm font-medium text-gray-800">{{dataIncidente.incidente ?? ""}}</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Colonia / barrio</p>
+          <p class="text-sm font-medium text-gray-800">{{dataIncidente.colonia ?? ""}}</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Punto de referencia</p>
+          <p class="text-sm font-medium text-gray-800">
+            {{dataIncidente.referencia ?? ""}}
+          </p>
+        </div>
+
+        <div class="md:col-span-2">
+          <p class="text-xs text-gray-500">Dirección</p>
+          <p class="text-sm font-medium text-gray-800">
+            {{dataIncidente.direccion ?? ""}}
+          </p>
+        </div>
       </div>
+    </section>
 
-      <div>
-        <p class="text-xs text-gray-500">Tipo</p>
-        <p class="text-sm font-medium text-gray-800">Emergencia</p>
+    <!-- Datos del denunciante -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-400 p-4 mb-3">
+      <h2 class="text-base font-semibold text-gray-800 mb-3">
+        Datos del denunciante
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+        <div>
+          <p class="text-xs text-gray-500">Denunciante</p>
+          <p class="text-sm font-medium text-gray-800">{{dataIncidente.denunciante_nombre ?? ""}}</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Teléfono</p>
+          <p class="text-sm font-medium text-gray-800">{{dataIncidente.denunciante_telefono ?? ""}}</p>
+        </div>
       </div>
+    </section>
 
-      <div>
-        <p class="text-xs text-gray-500">Colonia / barrio</p>
-        <p class="text-sm font-medium text-gray-800">Barrio El Norte</p>
+    <!-- Información de recepción -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-400 p-4 mb-3">
+      <h2 class="text-base font-semibold text-gray-800 mb-3">
+        Información de recepción
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3">
+        <div>
+          <p class="text-xs text-gray-500">Operador</p>
+          <p class="text-sm font-medium text-gray-800">{{dataIncidente.recepcion_nombre ?? ""}}</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Hora y fecha</p>
+          <p class="text-sm font-medium text-gray-800">{{dataIncidente.recepcion_date ?? ""}}</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Tipo de recepción</p>
+          <p class="text-sm font-medium text-gray-800">{{dataIncidente.recepcion_tipo ?? ""}}</p>
+        </div>
       </div>
+    </section>
 
-      <div>
-        <p class="text-xs text-gray-500">Punto de referencia</p>
-        <p class="text-sm font-medium text-gray-800">
-          Frente a la pulpería La Bendición
-        </p>
+    <!-- Asignación de recursos -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-400 p-4">
+      <h2 class="text-base font-semibold text-gray-800 mb-3">
+        Asignación de recursos
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3">
+        <div>
+          <p class="text-xs text-gray-500">Estación</p>
+          <p class="text-sm font-medium text-gray-800">Estación Central</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Unidad</p>
+          <p class="text-sm font-medium text-gray-800">Unidad B-12</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Operador</p>
+          <p class="text-sm font-medium text-gray-800">Luis Hernández</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Encargado</p>
+          <p class="text-sm font-medium text-gray-800">José Ramírez</p>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-500">Personal asignado</p>
+          <p class="text-sm font-medium text-gray-800">5 bomberos</p>
+        </div>
       </div>
-
-      <div class="md:col-span-2">
-        <p class="text-xs text-gray-500">Dirección</p>
-        <p class="text-sm font-medium text-gray-800">
-          Casa color azul, calle principal, Barrio El Norte
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Datos del denunciante -->
-  <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-400 p-4 mb-3">
-    <h2 class="text-base font-semibold text-gray-800 mb-3">
-      Datos del denunciante
-    </h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
-      <div>
-        <p class="text-xs text-gray-500">Denunciante</p>
-        <p class="text-sm font-medium text-gray-800">Daniel López</p>
-      </div>
-
-      <div>
-        <p class="text-xs text-gray-500">Teléfono</p>
-        <p class="text-sm font-medium text-gray-800">9999-9999</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Información de recepción -->
-  <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-400 p-4 mb-3">
-    <h2 class="text-base font-semibold text-gray-800 mb-3">
-      Información de recepción
-    </h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3">
-      <div>
-        <p class="text-xs text-gray-500">Operador</p>
-        <p class="text-sm font-medium text-gray-800">Carlos Martínez</p>
-      </div>
-
-      <div>
-        <p class="text-xs text-gray-500">Hora y fecha</p>
-        <p class="text-sm font-medium text-gray-800">01/07/2026 - 10:35 AM</p>
-      </div>
-
-      <div>
-        <p class="text-xs text-gray-500">Tipo de recepción</p>
-        <p class="text-sm font-medium text-gray-800">911</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Asignación de recursos -->
-  <section class="bg-white rounded-lg shadow-sm border border-gray-200 border-l-4 border-l-gray-400 p-4">
-    <h2 class="text-base font-semibold text-gray-800 mb-3">
-      Asignación de recursos
-    </h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3">
-      <div>
-        <p class="text-xs text-gray-500">Estación</p>
-        <p class="text-sm font-medium text-gray-800">Estación Central</p>
-      </div>
-
-      <div>
-        <p class="text-xs text-gray-500">Unidad</p>
-        <p class="text-sm font-medium text-gray-800">Unidad B-12</p>
-      </div>
-
-      <div>
-        <p class="text-xs text-gray-500">Operador</p>
-        <p class="text-sm font-medium text-gray-800">Luis Hernández</p>
-      </div>
-
-      <div>
-        <p class="text-xs text-gray-500">Encargado</p>
-        <p class="text-sm font-medium text-gray-800">José Ramírez</p>
-      </div>
-
-      <div>
-        <p class="text-xs text-gray-500">Personal asignado</p>
-        <p class="text-sm font-medium text-gray-800">5 bomberos</p>
-      </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
+}

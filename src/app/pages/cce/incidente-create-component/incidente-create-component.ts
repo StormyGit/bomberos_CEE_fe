@@ -6,9 +6,12 @@ import { WizardComponent } from "../../../components/wizard-component/wizard-com
 import { WizardStepComponent } from '../../../components/wizard-step-component/wizard-step-component';
 import { FormComponent } from "../../../components/form-component/form-component";
 import { DataFormService } from '../../../utils/data-form-service';
-import { MapPickerComponent, MapPoint } from "../../../shared/components/map-picker/map-picker";
+import { MapPickerComponent, MapPoint } from "../../../components/map-picker/map-picker";
 import { IncidenteInfoComponents } from "../../components/incidente-info-components/incidente-info-components";
 import { BadgeComponent } from "../../../components/badge-component/badge-component";
+import { incidente } from '../../../types/cce/incidente.interface';
+
+
 
 @Component({
   selector: 'app-incidente-create-component',
@@ -26,6 +29,23 @@ export class IncidenteCreateComponent {
     console.log('Latitud:', point.lat);
     console.log('Longitud:', point.lng);
   }
+
+onPointSelected(point: { lat: number; lng: number }): void {
+  console.log('PUNTO RECIBIDO EN PADRE:', point);
+
+  this.incidente_create = {
+    ...(this.incidente_create ?? {}),
+    punto: {
+      x: point.lng,
+      y: point.lat
+    }
+  };
+
+  console.log('incidente_create:', this.incidente_create);
+}
+
+  incidente_selection: incidente | null = null;
+  incidente_create: incidente | null = {};
 
 list: any[] = [
   { id:0, status: 'ejecucion', lugar: 'Col. Ayestas', region: 'Tegucigalpa', incidente: 'Incendio estructural', unidad: 'B-12', fecha: '2026-07-01', hora: '08:15' },
@@ -155,8 +175,26 @@ cerrarModal_detalles() {
 
 
   svFormData = inject(DataFormService);
-  submitForm_info(data: iFormEmit){
-    console.log("data::::: ", data);
+  submitForm_info(data: iFormEmit) {
+    const newData = this.removeEmptyValues(data.data);
+
+    this.incidente_create = {
+      ...(this.incidente_create ?? {}),
+      ...newData
+    };
+
+    console.log('incidente_create:', this.incidente_create);
   }
 
+  private removeEmptyValues<T extends object>(obj: T): Partial<T> {
+    const cleanObject: Partial<T> = {};
+
+    Object.entries(obj).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        cleanObject[key as keyof T] = value as T[keyof T];
+      }
+    });
+
+    return cleanObject;
+  }
 }

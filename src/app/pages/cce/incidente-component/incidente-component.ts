@@ -7,7 +7,7 @@ import { DataFormService } from '../../../utils/data-form-service';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { TableColumn, TableCustomComponent } from "../../../components/table-custom/table-custom"
-import { MapMarker, MapPickerComponent } from "../../../shared/components/map-picker/map-picker";
+import { MapPickerComponent } from "../../../components/map-picker/map-picker";
 export interface IncidenteInforme {
   id: number;
   status: 'pendiente' | 'ejecucion' | 'finalizado' | 'cancelado';
@@ -35,11 +35,12 @@ export interface MarkerInforme {
 
 @Component({
   selector: 'app-incidente-component',
-  imports: [MatTableModule, MatPaginatorModule, MapPickerComponent],
+  imports: [MatTableModule, MatPaginatorModule],
   templateUrl: './incidente-component.html',
   styleUrl: './incidente-component.css',
 })
 export class IncidenteComponent {
+  /*
 listInformes: IncidenteInforme[] = [
   {
     id: 1,
@@ -194,18 +195,6 @@ getMarkersMapa(): MarkerInforme[] {
 }
 
 
-get markersInforme(): MapMarker[] {
-  return this.listInformes.map((inc: any) => ({
-    id: inc.id,
-    lat: inc.lat,
-    lng: inc.lng,
-    title: inc.lugar,
-    subtitle: `${inc.incidente} · Unidad ${inc.unidad}`,
-    status: inc.status,
-    total: 1,
-    data: inc
-  }));
-}
 
   svFormData = inject(DataFormService);
   submitForm(data: iFormEmit){
@@ -230,6 +219,6 @@ get markersInforme(): MapMarker[] {
     { key: 'incidente_name', label: 'Nombre' },
     { key: 'incidente_dir', label: 'Correo' }
   ];
-
+*/
 
 }
